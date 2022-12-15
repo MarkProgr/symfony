@@ -52,6 +52,18 @@ services:
       - target: 443
         published: ${HTTP3_PORT:-443}
         protocol: udp
+  minio:
+    image: minio/minio
+    container_name: minio
+    command: server /storage --console-address ":9090"
+    volumes:
+      - minio_storage:/storage
+    environment:
+      MINIO_ROOT_USER: ${STORAGE_LOGIN:-storage_login}
+      MINIO_ROOT_PASSWORD: ${STORAGE_PASSWORD:-storage_password}
+    ports:
+      - "9000:9000"
+      - "9090:9090"      
 
 # Mercure is installed as a Caddy module, prevent the Flex recipe from installing another service
 ###> symfony/mercure-bundle ###
@@ -61,5 +73,6 @@ volumes:
   php_socket:
   caddy_data:
   caddy_config:
+  minio_storage:
 ###> symfony/mercure-bundle ###
 ###< symfony/mercure-bundle ###
