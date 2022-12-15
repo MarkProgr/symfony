@@ -14,6 +14,14 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% block body %}
+            <form method="post" action="{{ path('app_main_upload') }}" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Default file input example</label>
+                    <input name="file" class="form-control" type="file" id="formFile">
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        {% endblock %}
     </body>
 </html>
