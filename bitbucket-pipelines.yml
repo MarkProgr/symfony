@@ -1,0 +1,37 @@
+image: khs1994/php:8.1.1-composer-alpine
+pipelines:
+    pull-requests: 
+        '**':
+            - step:
+                name: Lint
+                script:
+                    - composer install
+                    - ./vendor/bin/php-cs-fixer fix --dry-run --diff --rules=@Symfony,@PSR12 src
+                caches:
+                    - composer
+            - step:
+                name: Test
+                script:
+                    - composer install
+                    - >
+                        APP_ENV=test 
+                        DATABASE_URL=mysql://root:let_me_in@127.0.0.1:3306/pipelines?serverVersion=8.0 
+                        ELASTICSEARCH_URL=http://127.0.0.1:9200 
+                        ./vendor/bin/phpunit
+                caches:
+                    - composer
+                services:
+                    - elasticsearch
+                    - mysql
+definitions: 
+    services: 
+        mysql:
+            image: mysql/mysql-server
+            variables:
+                MYSQL_ROOT_PASSWORD: 'let_me_in'
+                MYSQL_DATABASE: 'pipelines'
+                MYSQL_ROOT_HOST: '127.0.0.1'
+                MYSQL_USER: 'root'
+                MYSQL_ROOT: "3306"
+        elasticsearch:
+            image: docker.elastic.co/elasticsearch/elasticsearch:8.5.3

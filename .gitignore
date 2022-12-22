@@ -21,3 +21,9 @@ phpunit.xml.dist
 .phpunit.result.cache
 ###< phpunit/phpunit ###
 node_modules/
+
+###> friendsofphp/php-cs-fixer ###
+/.php-cs-fixer.php
+/.php-cs-fixer.cache
+.php-cs-fixer.dist.php
+###< friendsofphp/php-cs-fixer ###
