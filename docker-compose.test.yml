@@ -1,0 +1,37 @@
+version: "3.4"
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.5.3
+    container_name: elasticsearch
+    environment:
+      - cluster.name=docker-cluster
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1  
+        
+  mysql:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    container_name: mysql
+    environment:
+      MYSQL_DATABASE: 'symfony'
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_PASSWORD: 'secret'
+    ports:
+      - "3306:3306"  
+      
+  php:
+    image: 'bitnami/symfony'
+    ports:
+      - '8000:8000'
+    volumes:
+      - '.:/app'
+    environment:
+      ALLOW_EMPTY_PASSWORD: 'yes'
+

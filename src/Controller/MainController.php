@@ -25,7 +25,7 @@ class MainController extends AbstractController
         $file = $request->files->get('file');
 
         $uploader->uploadFile(
-            sha1($file->getContent()).'.'.$file->guessExtension(),
+            sha1($file->getContent()) . '.' . $file->guessExtension(),
             $file->getContent()
         );
 

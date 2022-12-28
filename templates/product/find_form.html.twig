@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Find {% endblock %}
+
+{% block body %}
+<div>
+    <form action="{{ path('app_product_find') }}" method="post">
+        <input name="value" type="text">
+        <button type="submit">Search</button>
+    </form>
+</div>
+{% endblock %}
