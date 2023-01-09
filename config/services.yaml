@@ -36,3 +36,9 @@ services:
             version: latest
             endpoint: http://minio:9000
             use_path_style_endpoint: true
+            
+    App\Controller\ProductController:
+        tags: [ 'controller.service_arguments' ]
+        public: true
+        arguments:
+            - '@fos_elastica.finder.product'

@@ -25,13 +25,13 @@ class FileUploader
     {
         $base = $this->uploadPath;
         if ($this->isTest()) {
-            $base = __DIR__.'/../../'.$this->uploadPath;
+            $base = __DIR__ . '/../../' . $this->uploadPath;
             if (!is_dir($base)) {
                 mkdir($base, recursive: true);
             }
         }
 
-        if (false === file_put_contents($base.'/'.$name, $fileResource)) {
+        if (false === file_put_contents($base . '/' . $name, $fileResource)) {
             throw new FileException('Failed to upload file');
         }
     }
