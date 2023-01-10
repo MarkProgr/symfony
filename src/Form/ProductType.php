@@ -15,14 +15,15 @@ class ProductType extends AbstractType
             ->add('name')
             ->add('description')
             ->add('manufacturer')
-            ->add('price')
-        ;
+            ->add('price');
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
+        $resolver->setDefaults(
+            [
             'data_class' => Product::class,
-        ]);
+            ]
+        );
     }
 }
