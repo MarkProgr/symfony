@@ -1,0 +1,4 @@
+framework:
+    cache:
+        # Redis
+        app: cache.adapter.array

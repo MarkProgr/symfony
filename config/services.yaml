@@ -42,3 +42,4 @@ services:
         public: true
         arguments:
             - '@fos_elastica.finder.product'
+

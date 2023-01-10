@@ -89,7 +89,12 @@ services:
       - elasticsearch
     ports:
       - "5601:5601"
-
+  
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
 
 # Mercure is installed as a Caddy module, prevent the Flex recipe from installing another service
 ###> symfony/mercure-bundle ###

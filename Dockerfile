@@ -1,4 +1,4 @@
-#syntax=docker/dockerfile:experimental
+#syntax=docker/dockerfile:1.4
 
 # The different stages of this Dockerfile are meant to be built into separate images
 # https://docs.docker.com/develop/develop-images/multistage-build/#stop-at-a-specific-build-stage
@@ -43,6 +43,7 @@ RUN set -eux; \
 ###> doctrine/doctrine-bundle ###
 RUN apk add --no-cache --virtual .pgsql-deps postgresql-dev; \
 	docker-php-ext-install -j$(nproc) pdo_mysql; \
+    docker-php-ext-install -j$(nproc) redis; \
 	apk add --no-cache --virtual .pgsql-rundeps so:libpq.so.5; \
 	apk del .pgsql-deps
 ###< doctrine/doctrine-bundle ###
@@ -92,6 +93,13 @@ RUN set -eux; \
 		composer run-script --no-dev post-install-cmd; \
 		chmod +x bin/console; sync; \
     fi
+
+RUN apk add --no-cache \
+        $PHPIZE_DEPS \
+    && pecl install redis \
+    && docker-php-ext-enable redis \
+    &&  rm -rf /tmp/pear \
+    && apk del $PHPIZE_DEPS
 
 # Dev image
 FROM app_php AS app_php_dev

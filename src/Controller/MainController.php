@@ -21,7 +21,9 @@ class MainController extends AbstractController
     #[Route('/main', name: 'app_main_upload', methods: ['POST'])]
     public function upload(Request $request, FileUploader $uploader): RedirectResponse
     {
-        /** @var UploadedFile $file */
+        /**
+ * @var UploadedFile $file
+*/
         $file = $request->files->get('file');
 
         $uploader->uploadFile(
