@@ -8,6 +8,7 @@
     "require": {
         "php": ">=8.1.1",
         "ext-ctype": "*",
+        "ext-fileinfo": "*",
         "ext-iconv": "*",
         "aws/aws-sdk-php": "^3.253",
         "doctrine/doctrine-bundle": "^2.7",
@@ -19,11 +20,14 @@
         "knplabs/knp-paginator-bundle": "^6.0",
         "league/csv": "^9.8",
         "sensio/framework-extra-bundle": "^6.2",
+        "symfony/amqp-messenger": "6.2.*",
         "symfony/console": "6.2.*",
         "symfony/dotenv": "6.2.*",
         "symfony/flex": "^2",
         "symfony/form": "6.2.*",
         "symfony/framework-bundle": "6.2.*",
+        "symfony/mailer": "6.2.*",
+        "symfony/messenger": "6.2.*",
         "symfony/mime": "6.2.*",
         "symfony/runtime": "6.2.*",
         "symfony/security-csrf": "6.2.*",
@@ -31,8 +35,7 @@
         "symfony/validator": "6.2.*",
         "symfony/yaml": "6.2.*",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0",
-        "ext-fileinfo": "*"
+        "twig/twig": "^2.12|^3.0"
     },
     "config": {
         "allow-plugins": {

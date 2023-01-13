@@ -39,11 +39,29 @@ RUN set -eux; \
 		opcache \
     ;
 
+RUN apk add --no-cache \
+        $PHPIZE_DEPS \
+    && pecl install redis \
+    && docker-php-ext-enable redis \
+    &&  rm -rf /tmp/pear \
+    && apk del $PHPIZE_DEPS
+
+RUN apk --update --no-cache add build-base \
+        autoconf \
+        rabbitmq-c rabbitmq-c-dev
+
+RUN apk add --no-cache \
+    	$PHPIZE_DEPS \
+	&& pecl install amqp \
+    && docker-php-ext-enable amqp \
+    && rm -rf /tmp/pear \
+    && apk del $PHPIZE_DEPS
+
 ###> recipes ###
 ###> doctrine/doctrine-bundle ###
 RUN apk add --no-cache --virtual .pgsql-deps postgresql-dev; \
 	docker-php-ext-install -j$(nproc) pdo_mysql; \
-    docker-php-ext-install -j$(nproc) redis; \
+    docker-php-ext-install -j$(nproc) amqp; \
 	apk add --no-cache --virtual .pgsql-rundeps so:libpq.so.5; \
 	apk del .pgsql-deps
 ###< doctrine/doctrine-bundle ###
@@ -93,13 +111,6 @@ RUN set -eux; \
 		composer run-script --no-dev post-install-cmd; \
 		chmod +x bin/console; sync; \
     fi
-
-RUN apk add --no-cache \
-        $PHPIZE_DEPS \
-    && pecl install redis \
-    && docker-php-ext-enable redis \
-    &&  rm -rf /tmp/pear \
-    && apk del $PHPIZE_DEPS
 
 # Dev image
 FROM app_php AS app_php_dev

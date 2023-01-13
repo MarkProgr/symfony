@@ -34,4 +34,3 @@ services:
       - '.:/app'
     environment:
       ALLOW_EMPTY_PASSWORD: 'yes'
-
