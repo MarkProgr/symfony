@@ -43,3 +43,5 @@ services:
         arguments:
             - '@fos_elastica.finder.product'
 
+    Goutte\Client:
+        shared: false
