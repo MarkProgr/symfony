@@ -28,5 +28,5 @@ jobs:
       - run:
           docker compose -f docker-compose.test.yml run php ./wait-for-it.sh mysql:3306 &&
           docker compose -f docker-compose.test.yml run php ./wait-for-it.sh elasticsearch:9200 &&
-          docker compose -f docker-compose.test.yml run php composer install &&
+          docker compose -f docker-compose.test.yml run php composer install --ignore-platform-reqs &&
           docker compose -f docker-compose.test.yml run php vendor/bin/phpunit
