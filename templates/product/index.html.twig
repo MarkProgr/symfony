@@ -23,7 +23,7 @@
                 <td>{{ product.name }}</td>
                 <td>{{ product.description }}</td>
                 <td>{{ product.manufacturer }}</td>
-                <td>{{ product.price }}</td>
+                <td>{{ convert(product.price) }}</td>
                 <td>
                     <a href="{{ path('app_product_show', {'id': product.id}) }}">show</a>
                     <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
@@ -37,9 +37,30 @@
         </tbody>
         <a href="{{ path('app_product_find_form') }}">Find product</a>
     </table>
+    <button id="btn-usd">
+        USD
+    </button>
+    <button id="btn-byn">
+        BYN
+    </button>
 
     <a href="{{ path('app_product_new') }}">Create new</a>
     <div>
         {{ knp_pagination_render(products) }}
     </div>
+
+    <script>
+        let buttonUsd = document.getElementById('btn-usd');
+        let buttonByn = document.getElementById('btn-byn');
+
+        buttonUsd.addEventListener('click', function () {
+            document.cookie = `course=${buttonUsd.innerText}`;
+            window.location.reload();
+        });
+
+        buttonByn.addEventListener('click', function () {
+            document.cookie = `course=${buttonByn.innerText}`;
+            window.location.reload();
+        })
+    </script>
 {% endblock %}
