@@ -45,3 +45,8 @@ services:
 
     Goutte\Client:
         shared: false
+    
+    admin.product:
+        class: App\Admin\ProductAdmin
+        tags:
+            - { name: sonata.admin, model_class: App\Entity\Product, manager_type: orm }

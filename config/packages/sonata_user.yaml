@@ -1,0 +1,11 @@
+sonata_user:
+    manager_type: orm
+    class:
+        user: App\Entity\SonataUserUser
+    resetting:
+        email:
+            address: sonata@localhost
+            sender_name: Sonata Admin
+    mailer: sonata.user.mailer.default
+    impersonating:
+        route: sonata_admin_dashboard    
